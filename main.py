@@ -14,7 +14,7 @@ num_processes = 0
 quantum = 0
 
 processes = []
-queue = []
+
 
 # Main
 start_input = input().split()
@@ -49,4 +49,23 @@ for i in range(num_processes):
         processes.append(Process(int(process_input[0]), int(process_input[1]), int(process_input[2])))
 
 
+# Run algorithm
+queue = []
 
+if algorithm == 0:
+    # FCFS
+    pass
+elif algorithm == 1:
+    # SJF
+    pass
+elif algorithm == 2:
+    # SRTF
+    pass
+elif algorithm == 3:
+    # Round Robin
+    pass
+
+
+# Print output
+for process in processes:
+    print(process)
