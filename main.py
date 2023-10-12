@@ -4,10 +4,10 @@
 # [Algorithm, Number of Processes, Quantum]
 
 #   Algorithms
-#   1 - First-Come-First-Serve (FCFS)
-#   2 - Shortest-Job-First (SJF)
-#   3 - Shortest-Remaining-Time-First (SRTF)
-#   4 - Round-Robin (RR)
+#   0 - First-Come-First-Serve (FCFS)
+#   1 - Shortest-Job-First (SJF)
+#   2 - Shortest-Remaining-Time-First (SRTF)
+#   3 - Round-Robin (RR)
 
 algorithm = -1
 num_processes = 0
