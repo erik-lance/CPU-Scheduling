@@ -20,7 +20,9 @@ class Process:
 
         :return: Formatted string of the start and end times for final output.
         """
-        
+        if self.remaining_time == 0:
+            return "No start and end times."
+
         # Prints as "start time: X end time: Y | start time: X end time: Y | ..."
         time_string = ""
         for start_time, end_time in self.start_end_time:
@@ -50,6 +52,11 @@ class Process:
         return self.get_turnaround_time() - self.burst_time
 
     def __str__(self):
-        return f"{self.id} {self.get_start_end_time_string} | Waiting Time: {self.waiting_time}"
+        if self.remaining_time == 0:
+            return f"{self.id} {self.get_start_end_time_string} | Waiting Time: {self.waiting_time}"
+        else:
+            # Present debugging information
+            return f"{self.id} AT: {self.arrival_time} BT: {self.burst_time} \nRemaining Time: {self.remaining_time}\nTimes: {self.get_start_end_time_string()}"
+
 
 
