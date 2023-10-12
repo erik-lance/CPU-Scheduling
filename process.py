@@ -8,10 +8,20 @@ class Process:
         self.waiting_time = 0
     
     def add_start_end_time(self, start_time, end_time):
+        """Adds a tuple of start and end time to the list of start and end times. Also subtracts the time from the remaining time.
+
+        :param start_time: The start time of the process.
+        :param end_time: The end time of the process.
+        """
         self.start_end_time.append((start_time, end_time))
         self.remaining_time -= (end_time - start_time)
 
     def get_start_end_time_string(self):
+        """Returns a string of the start and end times of the process.
+
+        :return: Formatted string of the start and end times for final output.
+        """
+        
         # Prints as "start time: X end time: Y | start time: X end time: Y | ..."
         time_string = ""
         for start_time, end_time in self.start_end_time:
