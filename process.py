@@ -49,14 +49,6 @@ class Process:
         # Waiting time = Turnaround time - Burst time
         return self.get_turnaround_time() - self.burst_time
 
-    def get_id(self):
-        """Returns the ID of the process.
-
-        :return: The ID of the process.
-        """
-        
-        return self.id
-
     def __str__(self):
         return f"{self.id} {self.get_start_end_time_string} | Waiting Time: {self.waiting_time}"
 
