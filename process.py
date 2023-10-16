@@ -12,7 +12,7 @@ class Process:
         :param start_time: The start time of the process.
         :param end_time: The end time of the process.
         """
-        self.start_end_time.append((start_time, end_time))
+        self.start_end_time.append((start_time, end_time, self.remaining_time))
         self.remaining_time -= (end_time - start_time)
 
     def get_start_end_time_string(self):
@@ -24,11 +24,12 @@ class Process:
             return "No start and end times."
 
         # Prints as "start time: X end time: Y | start time: X end time: Y | ..."
-        time_string = ""
-        for start_time, end_time in self.start_end_time:
-            time_string += f"start time: {start_time} end time: {end_time} | "
+        time_string = []
+        for start_time, end_time, remaining_time in self.start_end_time:
+            waiting_time = end_time - self.arrival_time - self.burst_time
+            time_string.append(f"start time: {start_time} end time: {end_time} | {waiting_time}")
         
-        return time_string[:-3] # Remove last " | "
+        return time_string
     
     def get_turnaround_time(self):
         """Calculates the turnaround time of the process.
@@ -53,7 +54,9 @@ class Process:
 
     def __str__(self):
         if self.remaining_time == 0:
-            return f"{self.id} {self.get_start_end_time_string} | Waiting Time: {self.waiting_time}"
+            # Present individual start and end times
+
+            return self.get_start_end_time_string()
         else:
             # Present debugging information
             return f"{self.id} AT: {self.arrival_time} BT: {self.burst_time} \nRemaining Time: {self.remaining_time}\nTimes: {self.get_start_end_time_string()}\n"
