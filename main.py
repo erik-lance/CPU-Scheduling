@@ -1,7 +1,6 @@
 # CPU Scheduling Simulator in CLI
 import sys
 from process import Process 
-from debug import Debug
 # First input must contain 3 numbers:
 # [Algorithm, Number of Processes, Quantum]
 
