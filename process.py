@@ -51,7 +51,8 @@ class Process:
         """
 
         # Waiting time = Turnaround time - Burst time
-        return self.get_turnaround_time() - self.burst_time
+        ret = self.get_turnaround_time() - self.burst_time
+        return 0 if ret < 0 else ret
 
     def __str__(self):
         if self.remaining_time == 0:
