@@ -59,7 +59,7 @@ class Process:
             return self.get_start_end_time_string()
         else:
             # Present debugging information
-            return f"{self.id} AT: {self.arrival_time} BT: {self.burst_time} \nRemaining Time: {self.remaining_time}\nTimes: {self.get_start_end_time_string()}\n"
+            return f"FAILED - {self.id} AT: {self.arrival_time} BT: {self.burst_time} \nRemaining Time: {self.remaining_time}\nTimes: {self.get_start_end_time_string()}\n"
 
 
 
