@@ -137,7 +137,8 @@ elif algorithm == 3:
 # Print output
 for process in processes:
     print(process)
-    print(
-        "Average waiting time:",
-        sum([process.get_waiting_time() for process in processes]) / len(processes),
-    )
+
+print(
+    "Average waiting time:",
+    sum([process.get_waiting_time() for process in processes]) / len(processes),
+)
