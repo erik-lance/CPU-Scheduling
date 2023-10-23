@@ -27,7 +27,7 @@ class Process:
         time_string = []
         for start_time, end_time, remaining_time in self.start_end_time:
             waiting_time = end_time - self.arrival_time - self.burst_time
-            time_string.append(f"start time: {start_time} end time: {end_time} | {waiting_time}")
+            time_string.append(f"{self.id} start time: {start_time} end time: {end_time} | {waiting_time}")
         
         return time_string
     
@@ -55,8 +55,7 @@ class Process:
     def __str__(self):
         if self.remaining_time == 0:
             # Present individual start and end times
-
-            return f"{self.id} {self.get_start_end_time_string()}"
+            return self.get_start_end_time_string()
         else:
             # Present debugging information
             return f"FAILED - {self.id} AT: {self.arrival_time} BT: {self.burst_time} \nRemaining Time: {self.remaining_time}\nTimes: {self.get_start_end_time_string()}\n"
