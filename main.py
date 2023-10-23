@@ -108,9 +108,9 @@ elif algorithm == 3:
             # print(f"Process {queue[1].id} is next.")
             # Check if next process has arrived, re-append to queue if current process is not finished
             if queue[1].arrival_time <= i:
-                # print(f"Process {queue[0].id} re-append.")
                 current_process = queue.pop(0)
                 if current_process.remaining_time > 0:
+                    # print(f"Process {queue[0].id} re-append.")
                     queue.append(current_process)
 
         # print(f"Process {queue[0].id} is running.")
