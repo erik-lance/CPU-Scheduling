@@ -56,7 +56,7 @@ class Process:
         if self.remaining_time == 0:
             # Present individual start and end times
 
-            return self.get_start_end_time_string()
+            return f"{self.id} {self.get_start_end_time_string()}"
         else:
             # Present debugging information
             return f"FAILED - {self.id} AT: {self.arrival_time} BT: {self.burst_time} \nRemaining Time: {self.remaining_time}\nTimes: {self.get_start_end_time_string()}\n"
