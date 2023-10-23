@@ -28,7 +28,7 @@ class Process:
         for start_time, end_time, remaining_time in self.start_end_time:
             waiting_time = end_time - self.arrival_time - self.burst_time
             time_string.append(
-                f"{self.id} start time: {start_time} end time: {end_time} | {waiting_time}"
+                f"{self.id} start time: {start_time} end time: {end_time} | Waiting time: {waiting_time if waiting_time > 0 else 0}"
             )
 
         return "\n".join(time_string)
