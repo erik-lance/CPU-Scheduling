@@ -61,6 +61,14 @@ for i in range(num_processes):
             Process(int(process_input[0]), int(process_input[1]), int(process_input[2]))
         )
 
+
+# For debugging purposes
+def print_queue(queue):
+    print("Queue:")
+    for process in queue:
+        print(f"Process {process.id} remaining time: {process.remaining_time}")
+
+
 # Run algorithm
 queue = []
 
@@ -103,10 +111,7 @@ elif algorithm == 3:
             else:
                 queue.append(queue.pop(0))
 
-            # Debug: Print queue
-            print("Queue:", end=" ")
-            for process in queue:
-                print(process.id, end=" ")
+            print_queue(queue)
 
         # If a process is running (no interrupt), skip to next iteration
         # If queue is empty, skip to next iteration
