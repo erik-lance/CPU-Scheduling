@@ -79,7 +79,7 @@ elif algorithm == 3:
     is_running = False
     next_process_time = -1
     i = 0
-    # While is there at least one process that is not processed
+    # While there is at least one process that is not processed
     while not all([process.is_processed for process in processes]):
         # print(f"Time: {i}")
         # Check if process arrives
