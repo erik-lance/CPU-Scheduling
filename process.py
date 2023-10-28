@@ -5,6 +5,11 @@ class Process:
         self.burst_time = burst_time
         self.remaining_time = burst_time
         self.start_end_time = []
+        self.is_processed = False
+
+    def set_processed(self):
+        """Sets the process as processed."""
+        self.is_processed = True
 
     def add_start_end_time(self, start_time, end_time):
         """Adds a tuple of start and end time to the list of start and end times. Also subtracts the time from the remaining time.
