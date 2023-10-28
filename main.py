@@ -1,6 +1,8 @@
 # CPU Scheduling Simulator in CLI
 from calendar import c
 import sys
+
+from numpy import minimum
 from process import Process
 
 # First input must contain 3 numbers:
@@ -59,12 +61,6 @@ for i in range(num_processes):
             Process(int(process_input[0]), int(process_input[1]), int(process_input[2]))
         )
 
-# Get total burst time
-total_burst_time = 0
-for process in processes:
-    total_burst_time += process.burst_time
-total_burst_time += 1  # Add 1 to account for last process
-
 # Run algorithm
 queue = []
 
@@ -82,8 +78,9 @@ elif algorithm == 3:
     start_time = 0
     is_running = False
     next_process_time = -1
-
-    for i in range(total_burst_time):
+    i = 0
+    # While is there at least one process that is not processed
+    while not all([process.is_processed for process in processes]):
         # print(f"Time: {i}")
         # Check if process arrives
         for process in processes:
@@ -95,12 +92,14 @@ elif algorithm == 3:
         if i == next_process_time:
             # print(f"Process {queue[0].id} finished.")
             is_running = False
+            queue[0].set_processed()
             queue[0].add_start_end_time(start_time, i)
             # print(f"Process {queue[0].id} start time: {start_time} end time: {i} remaining time: {queue[0].remaining_time}")
 
         # If a process is running (no interrupt), skip to next iteration
         if is_running:
             # print(f"Process {queue[0].id} is running. Ends at {next_process_time}.")
+            i += 1
             continue
 
         # Check if there's next in queue
@@ -121,6 +120,7 @@ elif algorithm == 3:
             if queue[0].remaining_time > quantum
             else i + queue[0].remaining_time
         )
+        i += 1
 
 # Print output
 for process in processes:
