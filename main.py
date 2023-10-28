@@ -89,11 +89,11 @@ elif algorithm == 3:
     i = 0
     # While there is at least one process that is not processed
     while not all([process.is_processed for process in processes]):
-        print(f"Time: {i}")
+        # print(f"Time: {i}")
         # Check if process arrives
         for process in processes:
             if process.arrival_time == i:
-                print(f"Process {process.id} arrived.")
+                # print(f"Process {process.id} arrived.")
                 queue.append(process)
 
         # If next process time is reached, set is_running to False
@@ -111,7 +111,7 @@ elif algorithm == 3:
             else:
                 queue.append(queue.pop(0))
 
-            print_queue(queue)
+            # print_queue(queue)
 
         # If a process is running (no interrupt), skip to next iteration
         # If queue is empty, skip to next iteration
