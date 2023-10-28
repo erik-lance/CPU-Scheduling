@@ -81,11 +81,11 @@ elif algorithm == 3:
     i = 0
     # While there is at least one process that is not processed
     while not all([process.is_processed for process in processes]):
-        # print(f"Time: {i}")
+        print(f"Time: {i}")
         # Check if process arrives
         for process in processes:
             if process.arrival_time == i:
-                # print(f"Process {process.id} arrived.")
+                print(f"Process {process.id} arrived.")
                 queue.append(process)
 
         # If next process time is reached, set is_running to False
@@ -96,21 +96,23 @@ elif algorithm == 3:
             queue[0].add_start_end_time(start_time, i)
             # print(f"Process {queue[0].id} start time: {start_time} end time: {i} remaining time: {queue[0].remaining_time}")
 
+            # Remove process from queue if remaining time is 0
+            # Else, append to end of queue
+            if queue[0].remaining_time == 0:
+                queue.pop(0)
+            else:
+                queue.append(queue.pop(0))
+
+            # Debug: Print queue
+            print("Queue:", end=" ")
+            for process in queue:
+                print(process.id, end=" ")
+
         # If a process is running (no interrupt), skip to next iteration
-        if is_running:
-            # print(f"Process {queue[0].id} is running. Ends at {next_process_time}.")
+        # If queue is empty, skip to next iteration
+        if is_running or len(queue) == 0:
             i += 1
             continue
-
-        # Check if there's next in queue
-        if len(queue) > 1:
-            # print(f"Process {queue[1].id} is next.")
-            # Check if next process has arrived, re-append to queue if current process is not finished
-            if queue[1].arrival_time <= i:
-                current_process = queue.pop(0)
-                if current_process.remaining_time > 0:
-                    # print(f"Process {queue[0].id} re-append.")
-                    queue.append(current_process)
 
         # print(f"Process {queue[0].id} is running.")
         is_running = True
