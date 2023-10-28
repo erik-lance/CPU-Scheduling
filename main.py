@@ -80,6 +80,34 @@ elif algorithm == 1:
     pass
 elif algorithm == 2:
     # SRTF
+    start_time = 0
+    is_running = -1
+    next_process_time = -1
+    i = 0
+    # While there is at least one process that is not processed
+    while not all([process.is_processed for process in processes]):
+        for process in processes:
+            if process.arrival_time == i:
+                # print(f"Process {process.id} arrived.")
+                queue.append(process)
+        
+        lowest = -1
+        counter = 0
+        for process in queue:
+            if lowest == -1 or (queue[counter].remaining_time() < queue[lowest].remaining_time() and queue[counter].remaining_time() > 0):
+                lowest = counter
+            counter += 1
+        if is_running == -1:
+            is_running = lowest
+        
+        if lowest != is_running:
+            queue[is_running].add_start_end_time(start_time, i)
+            if queue[is_running].remaining_time == 0:
+                queue[is_running].set_processed()
+                queue.pop(is_running)
+            is_running = lowest
+            start_time = i
+        i += 1
     pass
 elif algorithm == 3:
     # Round Robin
