@@ -1,7 +1,9 @@
 # CPU Scheduling Simulator in CLI
 from asyncio.windows_events import NULL
 from calendar import c
+from math import e
 import sys
+from turtle import st
 
 from numpy import minimum
 from process import Process
@@ -97,39 +99,32 @@ elif algorithm == 1:
     start_time = processes[0].arrival_time
     end_time = start_time
     i = 0
-    counter = False
+    arrived = []
     # While there is at least one process that is not processed
     while not all([process.is_processed for process in processes]):
         for process in processes:
             if process.arrival_time == i:
-                queue.append(process)  
-                
-        if len(queue) == len(processes):
-            counter = True
-        lowest = None
-        current_burst_time = 0
-        # if queue is not empty
-        while counter:
-            for process in queue:
-                print(process.id, "checked.")
-                print(end_time, process.arrival_time)
-                if end_time >= process.arrival_time:
-                    if lowest is None or process.burst_time < current_burst_time:
-                        current_burst_time = process.burst_time
-                        print(process.burst_time, current_burst_time)
-                        print("lowest", process.id)
-                        lowest = process
-                    
-            if lowest is not None:
-                print("lowest processed", lowest.id)
-                end_time = start_time + lowest.burst_time
-                lowest.add_start_end_time(start_time, end_time)
+                queue.append(process)
 
-                start_time = end_time
-                lowest.set_processed()
-                queue.remove(lowest)
+            # when queue is ready
+            if (len(queue) == len(processes)):
+                for process in queue:
+                    # checks for processes that arrived while the previous process was executing
+                    if end_time >= process.arrival_time and not process.is_processed:
+                        arrived.append(process)
+                        
+                if len(arrived) > 0:
+                    # sort already arrived processes by burst time
+                    arrived.sort(key=lambda x: x.burst_time)
+                    
+                    end_time = start_time + arrived[0].burst_time
+                    arrived[0].add_start_end_time(start_time, end_time)
+                    start_time = end_time
+                    arrived[0].set_processed()
+                    arrived = []
         i += 1
     pass
+
 elif algorithm == 2:
     # SRTF
     start_time = 0
