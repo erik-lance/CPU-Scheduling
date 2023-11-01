@@ -74,6 +74,21 @@ queue = []
 
 if algorithm == 0:
     # FCFS
+    start_time = 0
+    end_time = 0
+    i = 0
+    # While there is at least one process that is not processed
+    while not all([process.is_processed for process in processes]):
+        for process in processes:
+            if process.arrival_time == i:
+                queue.append(process)
+                # The end time of the current process is the burts time adedd with its start time
+                end_time = start_time + process.burst_time
+                process.add_start_end_time(start_time, end_time)
+                # The start time of the next process is the current end time
+                start_time = end_time
+                process.set_processed()
+        i += 1
     pass
 elif algorithm == 1:
     # SJF
