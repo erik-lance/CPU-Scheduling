@@ -83,7 +83,7 @@ if algorithm == 0:
     for process in processes:
         if start_time == -1 or process.arrival_time < start_time:
             start_time = process.arrival_time
-    
+
     end_time = 0
     i = 0
     # While there is at least one process that is not processed
@@ -118,16 +118,16 @@ elif algorithm == 1:
                 queue.append(process)
 
             # when queue is ready
-            if (len(queue) == len(processes)):
+            if len(queue) == len(processes):
                 for process in queue:
                     # checks for processes that arrived while the previous process was executing
                     if end_time >= process.arrival_time and not process.is_processed:
                         arrived.append(process)
-                        
+
                 if len(arrived) > 0:
                     # sort already arrived processes by burst time
                     arrived.sort(key=lambda x: x.burst_time)
-                    
+
                     end_time = start_time + arrived[0].burst_time
                     arrived[0].add_start_end_time(start_time, end_time)
                     start_time = end_time
@@ -147,16 +147,19 @@ elif algorithm == 2:
             if process.arrival_time == i:
                 # print(f"Process {process.id} arrived.")
                 queue.append(process)
-        
+
         lowest = -1
         counter = 0
         for process in queue:
-            if lowest == -1 or (queue[counter].remaining_time() < queue[lowest].remaining_time() and queue[counter].remaining_time() > 0):
+            if lowest == -1 or (
+                queue[counter].remaining_time() < queue[lowest].remaining_time()
+                and queue[counter].remaining_time() > 0
+            ):
                 lowest = counter
             counter += 1
         if is_running == -1:
             is_running = lowest
-        
+
         if lowest != is_running:
             queue[is_running].add_start_end_time(start_time, i)
             if queue[is_running].remaining_time == 0:
@@ -185,17 +188,17 @@ elif algorithm == 3:
         if i == next_process_time:
             # print(f"Process {queue[0].id} finished.")
             is_running = False
-            queue[0].set_processed()
             queue[0].add_start_end_time(start_time, i)
             # print(f"Process {queue[0].id} start time: {start_time} end time: {i} remaining time: {queue[0].remaining_time}")
 
             # Remove process from queue if remaining time is 0
             # Else, append to end of queue
             if queue[0].remaining_time == 0:
-                queue.pop(0)
+                queue.pop(0).set_processed()
             else:
                 queue.append(queue.pop(0))
 
+            # Print queue for debugging
             # print_queue(queue)
 
         # If a process is running (no interrupt), skip to next iteration
