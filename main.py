@@ -77,8 +77,13 @@ queue = []
 
 if algorithm == 0:
     # FCFS
-    # The start time should be the arrival time of the first process
-    start_time = processes[0].arrival_time
+    # The start time should be the arrival time of the first process to arrive
+    # Find the first process to arrive
+    start_time = -1
+    for process in processes:
+        if start_time == -1 or process.arrival_time < start_time:
+            start_time = process.arrival_time
+    
     end_time = 0
     i = 0
     # While there is at least one process that is not processed
@@ -96,7 +101,13 @@ if algorithm == 0:
     pass
 elif algorithm == 1:
     # SJF
-    start_time = processes[0].arrival_time
+
+    # Find the first process to arrive
+    start_time = -1
+    for process in processes:
+        if start_time == -1 or process.arrival_time < start_time:
+            start_time = process.arrival_time
+
     end_time = start_time
     i = 0
     arrived = []
