@@ -214,9 +214,9 @@ elif algorithm == 3:
         )
         i += 1
 
-# Print output
-for process in processes:
-    print(process)
+# Print output in order of process id
+for process in sorted(processes, key=lambda x: x.id):
+    print(process.get_start_end_time_string())
 
 print(
     "Average waiting time:",
