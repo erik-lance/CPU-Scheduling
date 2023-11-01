@@ -1,4 +1,5 @@
 # CPU Scheduling Simulator in CLI
+from asyncio.windows_events import NULL
 from calendar import c
 import sys
 
@@ -93,6 +94,41 @@ if algorithm == 0:
     pass
 elif algorithm == 1:
     # SJF
+    start_time = processes[0].arrival_time
+    end_time = start_time
+    i = 0
+    counter = False
+    # While there is at least one process that is not processed
+    while not all([process.is_processed for process in processes]):
+        for process in processes:
+            if process.arrival_time == i:
+                queue.append(process)  
+                
+        if len(queue) == len(processes):
+            counter = True
+        lowest = None
+        current_burst_time = 0
+        # if queue is not empty
+        while counter:
+            for process in queue:
+                print(process.id, "checked.")
+                print(end_time, process.arrival_time)
+                if end_time >= process.arrival_time:
+                    if lowest is None or process.burst_time < current_burst_time:
+                        current_burst_time = process.burst_time
+                        print(process.burst_time, current_burst_time)
+                        print("lowest", process.id)
+                        lowest = process
+                    
+            if lowest is not None:
+                print("lowest processed", lowest.id)
+                end_time = start_time + lowest.burst_time
+                lowest.add_start_end_time(start_time, end_time)
+
+                start_time = end_time
+                lowest.set_processed()
+                queue.remove(lowest)
+        i += 1
     pass
 elif algorithm == 2:
     # SRTF
