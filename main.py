@@ -98,7 +98,7 @@ if algorithm == 0:
                 start_time = end_time
                 process.set_processed()
         i += 1
-    pass
+
 elif algorithm == 1:
     # SJF
 
@@ -134,7 +134,6 @@ elif algorithm == 1:
                     arrived[0].set_processed()
                     arrived = []
         i += 1
-    pass
 
 elif algorithm == 2:
     # SRTF
@@ -166,7 +165,7 @@ elif algorithm == 2:
             is_running = lowest
             start_time = i
         i += 1
-    pass
+
 elif algorithm == 3:
     # Round Robin
     start_time = 0
