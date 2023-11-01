@@ -74,7 +74,8 @@ queue = []
 
 if algorithm == 0:
     # FCFS
-    start_time = 0
+    # The start time should be the arrival time of the first process
+    start_time = processes[0].arrival_time
     end_time = 0
     i = 0
     # While there is at least one process that is not processed
