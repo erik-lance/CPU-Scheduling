@@ -25,7 +25,7 @@ processes = []
 
 # Add Input File to Debug
 # e.g.: debug = 'input_files/sample.txt'
-debug = "input_files/sample.txt"
+debug = "input_files/sample2.txt"
 
 if debug is not None:
     sys.stdin = open(debug, "r")
@@ -143,30 +143,50 @@ elif algorithm == 2:
     i = 0
     # While there is at least one process that is not processed
     while not all([process.is_processed for process in processes]):
+        #Adds the process to the queue if it arrives at the current time
         for process in processes:
             if process.arrival_time == i:
                 # print(f"Process {process.id} arrived.")
                 queue.append(process)
 
+
         lowest = -1
         counter = 0
+        #Gets the index of the process in the queue with the lowest remaining time
         for process in queue:
-            if lowest == -1 or (
-                queue[counter].remaining_time() < queue[lowest].remaining_time()
-                and queue[counter].remaining_time() > 0
-            ):
+            if lowest == -1 or ( lowest != -1 and queue[counter].remaining_time < queue[lowest].remaining_time and queue[counter].remaining_time > 0):
                 lowest = counter
             counter += 1
         if is_running == -1:
             is_running = lowest
-
-        if lowest != is_running:
-            queue[is_running].add_start_end_time(start_time, i)
-            if queue[is_running].remaining_time == 0:
-                queue[is_running].set_processed()
-                queue.pop(is_running)
-            is_running = lowest
             start_time = i
+        #checks if the remaining unupdated time of the process is less than the lowest remaining time of a process in the queue
+        if is_running != -1 and queue[is_running].remaining_time - (i - start_time) < queue[lowest].remaining_time:
+            lowest = is_running
+        #print(lowest)
+        #print(is_running)
+        if is_running != -1 and lowest != -1:
+            if lowest != is_running or (i - start_time) == queue[is_running].remaining_time:
+                queue[is_running].add_start_end_time(start_time, i)
+                #if the process is finished, remove it from the queue and set process as processed
+                if queue[is_running].remaining_time == 0:
+                    queue[is_running].set_processed()
+                    queue.pop(is_running)
+                    lowest = -1
+                    counter = 0
+                    #Gets the index of the process in the queue with the lowest remaining time
+                    for process in queue:
+                        if lowest == -1 or ( lowest != -1 and
+                            queue[counter].remaining_time < queue[lowest].remaining_time
+                            and queue[counter].remaining_time > 0
+                        ):
+                            lowest = counter
+                        counter += 1
+                    is_running = lowest
+                else:
+                    is_running = lowest
+                start_time = i
+        #print_queue(queue)
         i += 1
 
 elif algorithm == 3:
