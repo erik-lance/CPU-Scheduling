@@ -25,7 +25,7 @@ processes = []
 
 # Add Input File to Debug
 # e.g.: debug = 'input_files/sample.txt'
-debug = "input_files/sample2.txt"
+debug = None
 
 if debug is not None:
     sys.stdin = open(debug, "r")
