@@ -2,6 +2,7 @@
 from asyncio.windows_events import NULL
 from calendar import c
 from math import e
+import os
 import sys
 from turtle import st
 
@@ -143,41 +144,53 @@ elif algorithm == 2:
     i = 0
     # While there is at least one process that is not processed
     while not all([process.is_processed for process in processes]):
-        #Adds the process to the queue if it arrives at the current time
+        # Adds the process to the queue if it arrives at the current time
         for process in processes:
             if process.arrival_time == i:
                 # print(f"Process {process.id} arrived.")
                 queue.append(process)
 
-
         lowest = -1
         counter = 0
-        #Gets the index of the process in the queue with the lowest remaining time
+        # Gets the index of the process in the queue with the lowest remaining time
         for process in queue:
-            if lowest == -1 or ( lowest != -1 and queue[counter].remaining_time < queue[lowest].remaining_time and queue[counter].remaining_time > 0):
+            if lowest == -1 or (
+                lowest != -1
+                and queue[counter].remaining_time < queue[lowest].remaining_time
+                and queue[counter].remaining_time > 0
+            ):
                 lowest = counter
             counter += 1
         if is_running == -1:
             is_running = lowest
             start_time = i
-        #checks if the remaining unupdated time of the process is less than the lowest remaining time of a process in the queue
-        if is_running != -1 and queue[is_running].remaining_time - (i - start_time) < queue[lowest].remaining_time:
+        # checks if the remaining unupdated time of the process is less than the lowest remaining time of a process in the queue
+        if (
+            is_running != -1
+            and queue[is_running].remaining_time - (i - start_time)
+            < queue[lowest].remaining_time
+        ):
             lowest = is_running
-        #print(lowest)
-        #print(is_running)
+        # print(lowest)
+        # print(is_running)
         if is_running != -1 and lowest != -1:
-            if lowest != is_running or (i - start_time) == queue[is_running].remaining_time:
+            if (
+                lowest != is_running
+                or (i - start_time) == queue[is_running].remaining_time
+            ):
                 queue[is_running].add_start_end_time(start_time, i)
-                #if the process is finished, remove it from the queue and set process as processed
+                # if the process is finished, remove it from the queue and set process as processed
                 if queue[is_running].remaining_time == 0:
                     queue[is_running].set_processed()
                     queue.pop(is_running)
                     lowest = -1
                     counter = 0
-                    #Gets the index of the process in the queue with the lowest remaining time
+                    # Gets the index of the process in the queue with the lowest remaining time
                     for process in queue:
-                        if lowest == -1 or ( lowest != -1 and
-                            queue[counter].remaining_time < queue[lowest].remaining_time
+                        if lowest == -1 or (
+                            lowest != -1
+                            and queue[counter].remaining_time
+                            < queue[lowest].remaining_time
                             and queue[counter].remaining_time > 0
                         ):
                             lowest = counter
@@ -186,7 +199,7 @@ elif algorithm == 2:
                 else:
                     is_running = lowest
                 start_time = i
-        #print_queue(queue)
+        # print_queue(queue)
         i += 1
 
 elif algorithm == 3:
@@ -237,6 +250,9 @@ elif algorithm == 3:
         )
         i += 1
 
+# Clear console using cls
+os.system("cls")
+
 # Print output in order of process id
 for process in sorted(processes, key=lambda x: x.id):
     print(process.get_start_end_time_string())
@@ -245,3 +261,6 @@ print(
     "Average waiting time:",
     sum([process.get_waiting_time() for process in processes]) / len(processes),
 )
+
+# Save output to file
+sys.stdout = open("output.txt", "w")
