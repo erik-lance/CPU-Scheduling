@@ -21,7 +21,6 @@ processes = []
 # Add Input File to Debug
 # e.g.: debug = 'input_files/sample.txt'
 debug = None
-output_text_file = False
 
 if debug is not None:
     sys.stdin = open(debug, "r")
@@ -43,10 +42,10 @@ if algorithm not in range(4):
     print("Invalid algorithm.")
     exit(1)
 elif num_processes < 3 or num_processes > 100:
-    print("Invalid number of processes.")
+    print("Invalid number of processes. Is ", num_processes, "Must be between 3 and 100 (inclusive).")
     exit(1)
 elif quantum < 1 or quantum > 100:
-    print("Invalid quantum.")
+    print("Invalid quantum. Is ", quantum, "Must be between 1 and 100 (inclusive).")
     exit(1)
 
 # Get processes
