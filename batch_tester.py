@@ -47,9 +47,11 @@ if __name__ == "__main__":
 
         # For each input file, run the main.py
         for input_file in input_files_paths:
-            # Get the output file name based on the input file (first two digits)
-            # e.g.: 00input.txt -> 00output.txt
-            output_file = os.path.join(output_folder, input_file.split('/')[-1][:2] + "output.txt")
+            # Get the output file name based on the input file (last two digits)
+            # e.g.: input00.txt -> output00.txt
+            # note: input_files_paths is a list of paths, so start from the end
+            output_num = input_file[-6:-4]
+            output_file = os.path.join(output_folder, f"{output_num}output.txt")
 
             # Read the input file
             with open(input_file, 'r') as file:
