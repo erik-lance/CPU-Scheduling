@@ -51,7 +51,7 @@ if __name__ == "__main__":
             # e.g.: input00.txt -> output00.txt
             # note: input_files_paths is a list of paths, so start from the end
             output_num = input_file[-6:-4]
-            output_file = os.path.join(output_folder, f"{output_num}output.txt")
+            output_file = os.path.join(output_folder, f"output{output_num}.txt")
 
             # Read the input file
             with open(input_file, 'r') as file:
