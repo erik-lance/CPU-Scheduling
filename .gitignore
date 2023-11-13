@@ -1,3 +1,7 @@
+# Remove output (XXoutput.txt) files under INPUT/
+clean:
+    rm -f INPUT/*output.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
