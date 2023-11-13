@@ -42,10 +42,10 @@ else:
 if algorithm not in range(4):
     print("Invalid algorithm.")
     exit(1)
-elif num_processes < 3 and num_processes > 100:
+elif num_processes < 3 or num_processes > 100:
     print("Invalid number of processes.")
     exit(1)
-elif quantum < 1 and quantum > 100:
+elif quantum < 1 or quantum > 100:
     print("Invalid quantum.")
     exit(1)
 
