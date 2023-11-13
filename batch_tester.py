@@ -17,8 +17,9 @@ def run_main(input_text, output_file):
     print(output)
     
     # Write the output to a file
+    # Skip 1 character from the start to remove special character from reading input
     with open(output_file, 'w') as file:
-        file.write(output)
+        file.write(output[1:])
 
 if __name__ == "__main__":
     # Check if the input/output folder exists
