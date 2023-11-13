@@ -1,12 +1,6 @@
 # CPU Scheduling Simulator in CLI
-from asyncio.windows_events import NULL
-from calendar import c
-from math import e
 import os
 import sys
-from turtle import st
-
-from numpy import minimum
 from process import Process
 
 # First input must contain 3 numbers:
